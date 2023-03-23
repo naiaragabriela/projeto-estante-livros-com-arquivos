@@ -37,7 +37,9 @@ namespace ListBooks
                         myBooks[position] = auxi;
                         break;
                     case 5:
-                        myBooks.Remove(FindBook());
+                        var remove = FindBook();
+                        int positionRemove = myBooks.IndexOf(remove);
+                        myBooks.Remove(remove);
                         break;
                     case 6:
                         SeparatList(myBooks);
