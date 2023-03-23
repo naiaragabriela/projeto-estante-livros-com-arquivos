@@ -38,7 +38,6 @@ namespace ListBooks
                         break;
                     case 5:
                         var remove = FindBook();
-                        int positionRemove = myBooks.IndexOf(remove);
                         myBooks.Remove(remove);
                         break;
                     case 6:
@@ -55,7 +54,7 @@ namespace ListBooks
 
             int Menu()
             {
-                Console.WriteLine("\n 1-Inserir Livro na Lista de livros" + "\n 2-Mostrar Lista de Livros" + "\n 3-Criar um arquivo da Lista de Livros" + "\n 4-Editar Informações Livro" + "\n 5-Remover Livro" + "\n 6 - Adicionar Livros editados no Arquivo Livros Emprestados e Arquivos de Livros de Leitura" + "\n 7-Sair");
+                Console.WriteLine("\n 1-Inserir Livro na Lista de livros" + "\n 2-Mostrar Lista de Livros" + "\n 3-Criar um arquivo da Lista de Livros" + "\n 4-Editar Informações Livro" + "\n 5-Remover Livro" + "\n 6-Adicionar Livros editados no Arquivo Livros Emprestados e Arquivos de Livros de Leitura" + "\n 7-Sair");
                 int op = int.Parse(Console.ReadLine());
                 return op;
             }
@@ -68,19 +67,19 @@ namespace ListBooks
                 Console.WriteLine("Digite o nome do Livro:");
                 book.NameBook = Console.ReadLine();
                 Console.WriteLine("Digite a Editora do Livro:");
+                book.Edition = Console.ReadLine();
                 Console.WriteLine("Digite o nome do Autor: ");
                 author.Name = Console.ReadLine();
                 Console.WriteLine("digite o sobrenome do autor: ");
                 author.LastName = Console.ReadLine();
                 book.Author = author;
-                book.Edition = Console.ReadLine();
                 Console.WriteLine("Digite o ano do Livro:");
                 book.Year = int.Parse(Console.ReadLine());
                 Console.WriteLine("Digite o código ISBN do Livro:");
                 book.ISBN = Console.ReadLine();
+
                 return book;
             }
-
             Book FindBook()
             {
                 Console.WriteLine("Digite o nome do Livro: ");
@@ -205,13 +204,13 @@ namespace ListBooks
 
             List<Book> LoadFile()
             {
-                if (!File.Exists("AvaiableBookList.txt"))
+                if (!File.Exists("ListaLivrosDisponiveis.txt"))
                 {
-                    StreamWriter sw = new("AvaiableBookList.txt");
+                    StreamWriter sw = new("ListaLivrosDisponiveis.txt");
                     sw.Close();
                 }
 
-                StreamReader sr = new("AvaiableBookList.txt");
+                StreamReader sr = new("ListaLivrosDisponiveis.txt");
                 string text = "";
 
                 List<Book> myBooks = new();
@@ -240,7 +239,7 @@ namespace ListBooks
             {
                 try
                 { 
-                        StreamWriter sw = new("ReadingBookList.txt");
+                        StreamWriter sw = new("ListaLivrosDeLeitura.txt");
                         sw.WriteLine(bookReading);
                         sw.Close();
                 }
@@ -253,14 +252,13 @@ namespace ListBooks
                     Console.WriteLine("Registro gravado com sucesso!");
                     Thread.Sleep(1000);
                 }
-
             }
 
             void WriteFile(string bookAvaiable)
             {
                 try
                 {
-                        StreamWriter sw = new("AvaiableBookList.txt");
+                        StreamWriter sw = new("ListaLivrosDisponiveis.txt");
                         sw.WriteLine(bookAvaiable);
                         sw.Close();
                 }
@@ -280,7 +278,7 @@ namespace ListBooks
             {
                 try
                 {
-                        StreamWriter sw = new("BorrewedBookList.txt");
+                        StreamWriter sw = new("ListaLivrosEmprestados.txt");
                         sw.WriteLine(bookBorrewed);
                         sw.Close();
                 }
