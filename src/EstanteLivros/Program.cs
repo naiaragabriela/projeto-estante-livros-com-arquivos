@@ -22,25 +22,21 @@ namespace ListBooks
                     case 1:
                         var aux = InsertBook();
                         myBooks.Add(aux);
-                        WriteFile(aux.ToString());
+                        SeparatList(myBooks);
                         break;
                     case 2:
                         PrintBook(myBooks);
-                        break;
-                    case 3:
-                        myBooks = LoadFile();
                         break;
                     case 4:
                         var auxi = FindBook();
                         EditBook(auxi);
                         int position = myBooks.IndexOf(auxi);
                         myBooks[position] = auxi;
+                        SeparatList(myBooks);
                         break;
                     case 5:
                         var remove = FindBook();
                         myBooks.Remove(remove);
-                        break;
-                    case 6:
                         SeparatList(myBooks);
                         break;
                     case 7:
@@ -80,6 +76,7 @@ namespace ListBooks
 
                 return book;
             }
+
             Book FindBook()
             {
                 Console.WriteLine("Digite o nome do Livro: ");
@@ -183,23 +180,33 @@ namespace ListBooks
                 {
                     if (book.Borrewed == true)
                     {
-                        bookBorrewed += book.ToString() +"\n";
-
+                        bookBorrewed += book.ToString() + "\n";
                     }
+                    
                     if (book.Reading == true)
                     {
                         bookReading += book.ToString() + "\n";
- 
                     }
-
                     bookAvaiable += book.ToString() + "\n";
                 }
 
-                WriteFileReading(bookReading);
 
-                WriteFileBorrewed(bookBorrewed);
+                if (string.IsNullOrWhiteSpace(bookReading))
+                {
 
-                WriteFile(bookAvaiable);
+                    WriteFileReading(bookReading);
+                }
+
+                if (string.IsNullOrWhiteSpace(bookBorrewed))
+                {
+                    WriteFileBorrewed(bookBorrewed);
+                }
+
+                if(string.IsNullOrWhiteSpace(bookAvaiable)) 
+                { 
+                    WriteFile(bookAvaiable);
+                
+                }
             }
 
             List<Book> LoadFile()
